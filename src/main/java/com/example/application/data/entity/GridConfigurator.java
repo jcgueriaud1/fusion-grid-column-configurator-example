@@ -4,6 +4,7 @@ import com.example.application.data.AbstractEntity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ public class GridConfigurator extends AbstractEntity {
 
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<GridColumnConfigurator> columns = new ArrayList<>();
 
     public String getName() {
