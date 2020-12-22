@@ -1,0 +1,9 @@
+:host([theme~="small"]) [part~="cell"] {
+    min-height: var(--lumo-size-xxs);
+}
+:host([theme~="small"])  {
+    font-size: var(--lumo-font-size-xs);
+}
+:host([theme~="small"]) [part~="cell"] ::slotted(vaadin-grid-cell-content) {
+    padding: 1px var(--lumo-space-s);
+}
