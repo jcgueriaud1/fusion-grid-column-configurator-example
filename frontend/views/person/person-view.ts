@@ -22,7 +22,6 @@ import Person from '../../generated/com/example/application/data/entity/Person';
 import PersonModel from '../../generated/com/example/application/data/entity/PersonModel';
 import * as PersonEndpoint from '../../generated/PersonEndpoint';
 import * as GridConfiguratorEndpoint from '../../generated/GridConfiguratorEndpoint';
-// @ts-ignore
 import styles from './person-view.css';
 import GridConfigurator from '../../generated/com/example/application/data/entity/GridConfigurator';
 import { GridColumnElement } from '@vaadin/vaadin-grid/src/vaadin-grid-column';
