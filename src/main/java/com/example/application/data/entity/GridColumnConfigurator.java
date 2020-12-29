@@ -2,21 +2,25 @@ package com.example.application.data.entity;
 
 import com.example.application.data.AbstractEntity;
 
+import javax.annotation.Nullable;
 import javax.persistence.Entity;
 
 @Entity
 public class GridColumnConfigurator extends AbstractEntity {
 
+    private String headerText;
     private String path;
     private boolean visible;
     private int orderColumn;
+    @Nullable
+    private String direction;
 
     public GridColumnConfigurator() {
         super();
     }
 
-    public GridColumnConfigurator(String path, boolean visible, int orderColumn) {
-        this();
+    public GridColumnConfigurator(String headerText, String path, boolean visible, int orderColumn) {
+        this.headerText = headerText;
         this.path = path;
         this.visible = visible;
         this.orderColumn = orderColumn;
@@ -44,5 +48,36 @@ public class GridColumnConfigurator extends AbstractEntity {
 
     public void setOrderColumn(int orderColumn) {
         this.orderColumn = orderColumn;
+    }
+
+    public String getHeaderText() {
+        return headerText;
+    }
+
+    public void setHeaderText(String headerText) {
+        this.headerText = headerText;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
+    public enum GridDirection {
+
+        asc(1), desc(2);
+
+        private final int value;
+
+        GridDirection(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return this.value;
+        }
     }
 }

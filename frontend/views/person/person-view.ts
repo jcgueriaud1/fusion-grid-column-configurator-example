@@ -16,7 +16,6 @@ import '@vaadin/vaadin-ordered-layout/vaadin-vertical-layout';
 import '@vaadin/vaadin-split-layout/vaadin-split-layout';
 import '@vaadin/vaadin-text-field';
 import '@vaadin/vaadin-upload';
-import { nothing, render } from 'lit-html';
 import { customElement, html, internalProperty, LitElement, property, query, unsafeCSS } from 'lit-element';
 import Person from '../../generated/com/example/application/data/entity/Person';
 import PersonModel from '../../generated/com/example/application/data/entity/PersonModel';
@@ -27,6 +26,7 @@ import GridConfigurator from '../../generated/com/example/application/data/entit
 import { GridColumnElement } from '@vaadin/vaadin-grid/src/vaadin-grid-column';
 import GridColumnConfigurator from '../../generated/com/example/application/data/entity/GridColumnConfigurator';
 import { ButtonElement } from '@vaadin/vaadin-button/vaadin-button';
+import { renderGridColumns, getContextMenu } from '../../column-utils/RenderUtils';
 
 
 @customElement('person-view')
@@ -73,15 +73,9 @@ export class PersonView extends LitElement {
             @active-item-changed=${this.itemSelected}
             column-reordering-allowed
             @column-reorder="${this.columnReordered}"
+            ?multi-sort="${(this.personGridConfiguration)?this.personGridConfiguration!.multisort:false}"
           >
-          ${
-            this.personGridConfiguration?
-            (
-              this.personGridConfiguration!.columns.sort((a,b) => (a.orderColumn - b.orderColumn)).map(column =>
-              html`<vaadin-grid-sort-column ?hidden="${!column.visible}" path="${column.path}" id="${column.id}"></vaadin-grid-sort-column
-              >`)
-            ): nothing
-          }
+            ${renderGridColumns(this.personGridConfiguration, this.updateGridColumnConfiguration.bind(this))}
           </vaadin-grid>
         </div>
         <div id="editor-layout">
@@ -150,30 +144,19 @@ export class PersonView extends LitElement {
     }
   }
 
-  private getContextMenu(root: HTMLElement) {
-      render(
-        html`<vaadin-vertical-layout>
-          ${this.personGridConfiguration!.columns.map((configuration) => {
-            return html`<vaadin-checkbox ?checked="${configuration.visible}" @click="${(e: CustomEvent) => this.toggleVisibility(e, configuration.id)}">${configuration.path}</vaadin-checkbox>`;
-          })}
-          </vaadin-vertical-layout>
-        `,
-        root as HTMLElement,
-        { eventContext: this } // bind event listener properly
-      );
+  private updateGridColumnConfiguration(gridColumnConfigurator: GridColumnConfigurator[]) {
+    debugger;
+    GridConfiguratorEndpoint.update({...this.personGridConfiguration!, columns: gridColumnConfigurator});
   }
 
-  private toggleVisibility(e: CustomEvent, columnId: Number) {
-    console.log("toggleVisibility" + e);
+  private getContextMenu(root: HTMLElement) {
+    getContextMenu(this.personGridConfiguration!, this, root, this.updateGridColumnConfigurationAndRefresh.bind(this));
+  }
+
+  private updateGridColumnConfigurationAndRefresh(gridColumnConfigurator: GridColumnConfigurator[]) {
     debugger;
-    const columns: GridColumnConfigurator[] = [];
-    // add all hidden columns
-    this.personGridConfiguration!.columns.forEach( (column) => {
-      const visible = (column.id == columnId)?!column.visible:column.visible;
-      columns.push( {...column, visible: visible });
-    }
-  );
-  this.personGridConfiguration = {...this.personGridConfiguration!, columns: columns};
+    this.personGridConfiguration = {...this.personGridConfiguration!, columns: gridColumnConfigurator};
+    GridConfiguratorEndpoint.update(this.personGridConfiguration!);
   }
 
   private columnReordered(event: CustomEvent) {
@@ -187,10 +170,10 @@ export class PersonView extends LitElement {
     });
     // add all hidden columns
     this.personGridConfiguration!.columns.forEach( (column) => {
-        if (!column.visible) {
-          columns.push(column);
+          if (!column.visible) {
+            columns.push(column);
+          }
         }
-      }
     );
     this.personGridConfiguration!.columns = columns;
     GridConfiguratorEndpoint.update(this.personGridConfiguration!);

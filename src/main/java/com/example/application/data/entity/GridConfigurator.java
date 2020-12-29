@@ -12,6 +12,8 @@ import java.util.List;
 @Entity
 public class GridConfigurator extends AbstractEntity {
 
+    private Boolean multisort;
+
     private String name;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -31,5 +33,13 @@ public class GridConfigurator extends AbstractEntity {
 
     public void setColumns(List<GridColumnConfigurator> columns) {
         this.columns = columns;
+    }
+
+    public Boolean getMultisort() {
+        return multisort;
+    }
+
+    public void setMultisort(Boolean multisort) {
+        this.multisort = multisort;
     }
 }
