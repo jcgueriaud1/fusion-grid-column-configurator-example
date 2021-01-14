@@ -6,6 +6,7 @@ import '@vaadin/vaadin-tabs/theme/lumo/vaadin-tab';
 import '@vaadin/vaadin-tabs/theme/lumo/vaadin-tabs';
 import { css, customElement, html, LitElement, property } from 'lit-element';
 import { router } from '../../index';
+import {registerTranslateConfig, use} from "lit-translate";
 
 interface MenuTab {
   route: string;
@@ -117,6 +118,10 @@ export class MainView extends LitElement {
             <img src="images/logo.png" alt="${this.projectName} logo" />
             <span>${this.projectName}</span>
           </div>
+          <div>
+            <vaadin-button @click="${this.switchToEnglish}">English</vaadin-button>
+            <vaadin-button @click="${this.switchToFrench}">Francais</vaadin-button>
+          </div>
           <hr />
           <vaadin-tabs orientation="vertical" theme="minimal" id="tabs" .selected="${this.getIndexOfSelectedTab()}">
             ${this.menuTabs.map(
@@ -140,6 +145,10 @@ export class MainView extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     window.addEventListener('vaadin-router-location-changed', this._routerLocationChanged);
+    registerTranslateConfig({
+      loader: lang => fetch(`assets/i18n/${lang}.json`).then(res => res.json())
+    });
+    use("en");
     this.projectName = 'My Project';
   }
 
@@ -172,5 +181,12 @@ export class MainView extends LitElement {
       tabName = 'Hello World';
     }
     return tabName;
+  }
+  switchToFrench() {
+    use("fr");
+  }
+
+  switchToEnglish() {
+    use("en");
   }
 }

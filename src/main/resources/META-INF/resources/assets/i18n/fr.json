@@ -5,6 +5,11 @@
   },
   "cta": {
     "awesome": "{{ things }} sont fabuleux !",
-    "cats": "Chats"
+    "cats": "Les chats"
+  },
+  "routes": {
+    "hello": "Bonjour le monde",
+    "person": "Personne",
+    "about": "A propos"
   }
 }
