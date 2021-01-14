@@ -46,6 +46,7 @@ dependencies:
   '@vaadin/vaadin-time-picker': 2.4.0
   '@vaadin/vaadin-upload': 4.4.1
   lit-element: 2.3.1
+  lit-translate: 1.2.1
   open: 7.3.0
 devDependencies:
   '@types/validator': 13.1.0
@@ -4018,7 +4019,7 @@ packages:
     resolution:
       integrity: sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
   /fsevents/2.1.3:
-    deprecated: Please update to v 2.2.x
+    deprecated: '"Please update to latest v2.3 or v2.2"'
     dev: true
     engines:
       node: ^8.16.0 || ^10.6.0 || >=11.0.0
@@ -4906,6 +4907,12 @@ packages:
   /lit-html/1.2.1:
     resolution:
       integrity: sha512-GSJHHXMGLZDzTRq59IUfL9FCdAlGfqNp/dEa7k7aBaaWD+JKaCjsAk9KYm2V12ItonVaYx2dprN66Zdm1AuBTQ==
+  /lit-translate/1.2.1:
+    dependencies:
+      lit-html: 1.2.1
+    dev: false
+    resolution:
+      integrity: sha512-jykKpkdRX0lx3JYq9jUMzVs02ISClOe2wxyPHat5wVKPyBRJQxgXxLxj1AbpuLNBCDZKEysMBpeJ1z0Y35Bk2Q==
   /loader-runner/2.4.0:
     dev: true
     engines:
@@ -7569,6 +7576,7 @@ specifiers:
   lit-css-loader: 0.0.4
   lit-element: 2.3.1
   lit-html: 1.2.1
+  lit-translate: ^1.2.1
   open: ^7.2.1
   progress-webpack-plugin: 0.0.24
   raw-loader: 4.0.0

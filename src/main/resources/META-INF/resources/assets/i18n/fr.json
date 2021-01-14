@@ -1,0 +1,10 @@
+{
+  "header": {
+    "title": "Bonjour",
+    "subtitle": "le monde"
+  },
+  "cta": {
+    "awesome": "{{ things }} sont fabuleux !",
+    "cats": "Chats"
+  }
+}
