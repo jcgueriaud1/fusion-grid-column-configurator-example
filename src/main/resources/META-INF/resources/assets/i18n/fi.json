@@ -1,0 +1,15 @@
+{
+  "header": {
+    "title": "Hei",
+    "subtitle": "maailma"
+  },
+  "cta": {
+    "awesome": "{{ things }} ovat mahtavia!",
+    "cats": "Koirat"
+  },
+  "routes": {
+    "hello": "Hei maailma",
+    "person": "Henkilö",
+    "about": "Tietoja"
+  }
+}
