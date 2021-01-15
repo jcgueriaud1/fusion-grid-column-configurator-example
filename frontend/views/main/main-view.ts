@@ -121,6 +121,7 @@ export class MainView extends LitElement {
           <div>
             <vaadin-button @click="${this.switchToEnglish}">English</vaadin-button>
             <vaadin-button @click="${this.switchToFrench}">Francais</vaadin-button>
+            <vaadin-button @click="${this.switchToFinnish}">Suomeksi</vaadin-button>
           </div>
           <hr />
           <vaadin-tabs orientation="vertical" theme="minimal" id="tabs" .selected="${this.getIndexOfSelectedTab()}">
@@ -188,5 +189,9 @@ export class MainView extends LitElement {
 
   switchToEnglish() {
     use("en");
+  }
+
+  switchToFinnish() {
+    use("fi");
   }
 }
